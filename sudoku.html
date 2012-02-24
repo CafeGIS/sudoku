@@ -1,30 +1,47 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>Sudoku</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="data.js"></script>
 <script type="text/javascript" src="logic.js"></script>
 <style type="text/css">
   #board table {
     border: 3px solid;
   }
-
   #board input {
-    width: 20px;
+    width: 50px;
+    height: 50px;
     border: none;
+    font-size: 2em;
     text-align: center;
     padding: 2px;
+    margin: 1px;
   }
-
   #board input.write-field {
-    background-color: #edd;
+    background-color: #eed;
+  }
+  #board .highlighted input {
+    background-color: #dfd;
+  }
+  #board .conflicted input {
+    color: #f33;
+  }
+  #board td.left-bordered {
+    border-left: 3px solid;
+  }
+  #board td.top-bordered {
+    border-top: 3px solid;
   }
 </style>
 </head>
 <body>
-  <h1>Plansza</h1>
+  <h1>Gra sudoku</h1>
+  <h2>Wybór planszy</h2>
+  <div id="selection"></div>
+  <h2>Plansza</h2>
   <div id="board"></div>
 </body>
 </html>
