@@ -1,0 +1,45 @@
+body {
+   color: #135d95;
+   font-family: "Lucida Grande", "Lucida Sans", "Arial", sans-serif;
+}
+#buttons, #time-left, #main-board {
+   margin: 10px;
+}
+#state-slider {
+   margin: 20px;
+   width: 500px;
+}
+#time-left {
+   vertical-align: top;
+   font-size: 2.3em;
+   font-weight: bold;
+}
+.board table {
+   border: 3px solid;
+}
+.board input {
+   color: #135d95;
+   width: 50px;
+   height: 50px;
+   border: none;
+   font-size: 35px;
+   text-align: center;
+   padding: 2px;
+   margin: 1px;
+}
+.board input.write-field {
+   color: black;
+   background-color: #e3f0fe;
+}
+.board .highlighted input {
+   background-color: #dfd;
+}
+.board .conflicted input {
+   color: #f33;
+}
+.board td.left-bordered {
+   border-left: 3px solid;
+}
+.board td.top-bordered {
+   border-top: 3px solid;
+}
