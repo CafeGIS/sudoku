@@ -7,17 +7,37 @@
 <link type="text/css" rel="stylesheet" href="css/redmond/jquery-ui-1.8.18.custom.css" />
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-<script type="text/javascript" src="js/boards.js"></script>
-<script type="text/javascript" src="js/logic.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/board.js"></script>
+<script type="text/javascript" src="js/timer.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
   <div id="buttons">
     <button id="change">Change</button>
     <button id="reset">Reset</button>
+    <button id="hint">Hint</button>
+    <button id="undo">Undo</button>
+    <button id="redo">Redo</button>
     <button id="pause">Pause</button>
     <span id="time-left"></span>
   </div>
-  <div id="state-slider"></div>
-  <div class="board" id="main-board"></div>
+  <div id="main-board" class="board"></div>
+  <div id="dialog-change" class="dialog" title="Change board">
+    <p>Please choose one of following boards:</p>
+    <p id="board-list"></p>
+  </div>
+  <div id="dialog-hint" class="dialog" title="Hint">
+    <p>Allowed numbers:</p>
+    <p id="allowed-numbers"></p>
+  </div>
+  <div id="dialog-pause" class="dialog" title="Paused">
+    <p>Game is paused.</p>
+  </div>
+  <div id="dialog-timeout" class="dialog" title="Time out!">
+    <p>You have run out of time.</p>
+    <p>Board will be reset.</p>
+  </div>
 </body>
 </html>
