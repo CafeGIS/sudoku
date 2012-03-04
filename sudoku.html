@@ -1,43 +1,115 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-<title>Sudoku</title>
-<link type="text/css" rel="stylesheet" href="css/main.css" />
-<link type="text/css" rel="stylesheet" href="css/redmond/jquery-ui-1.8.18.custom.css" />
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-<script type="text/javascript" src="js/util.js"></script>
-<script type="text/javascript" src="js/data.js"></script>
-<script type="text/javascript" src="js/board.js"></script>
-<script type="text/javascript" src="js/timer.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-</head>
-<body>
-  <div id="buttons">
-    <button id="change">Change</button>
-    <button id="reset">Reset</button>
-    <button id="hint">Hint</button>
-    <button id="undo">Undo</button>
-    <button id="redo">Redo</button>
-    <button id="pause">Pause</button>
-    <span id="time-left"></span>
-  </div>
-  <div id="main-board" class="board"></div>
-  <div id="dialog-change" class="dialog" title="Change board">
-    <p>Please choose one of following boards:</p>
-    <p id="board-list"></p>
-  </div>
-  <div id="dialog-hint" class="dialog" title="Hint">
-    <p>Allowed numbers:</p>
-    <p id="allowed-numbers"></p>
-  </div>
-  <div id="dialog-pause" class="dialog" title="Paused">
-    <p>Game is paused.</p>
-  </div>
-  <div id="dialog-timeout" class="dialog" title="Time out!">
-    <p>You have run out of time.</p>
-    <p>Board will be reset.</p>
-  </div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Web Sudoku</title>
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index">Web Sudoku</a>
+          <div class="nav-collapse">
+            <ul class="nav pull-right">
+              <li><a href="{#CONF_FOOTER_LINK#}">About</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="btn-toolbar" id="buttons">
+        <div class="btn-group">
+          <a class="btn btn-primary" data-toggle="modal" href="#modal-change">Choose board</a>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-danger" id="reset">Reset</a>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-info" id="hint"><i class="icon-info-sign icon-white"></i> Hint</a>
+        </div>
+        <div class="btn-group">
+          <a class="btn" id="undo"><i class="icon-arrow-left"></i> Undo</a>
+          <a class="btn" id="redo">Redo <i class="icon-arrow-right"></i></a>
+        </div>
+        <div class="btn-group">
+          <a class="btn" id="pause"><i class="icon-pause"></i> Pause</a>
+        </div>
+        <div class="btn-group">
+          <span id="time-left"></span>
+        </div>
+      </div>
+      <div id="main-board" class="board"></div>
+      <div class="modal hide fade" id="modal-change">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">x</a>
+          <h3>Choose board</h3>
+        </div>
+        <div class="modal-body">
+          <p>Please choose one of following boards:</p>
+          <div class="btn-group" id="board-list"></div>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+      </div>
+      <div class="modal hide" id="modal-hint">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">x</a>
+          <h3>Hint</h3>
+        </div>
+        <div class="modal-body">
+          <p>Allowed numbers:</p>
+          <p id="allowed-numbers"></p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+      </div>
+      <div class="modal hide" id="modal-pause">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">x</a>
+          <h3>Pause</h3>
+        </div>
+        <div class="modal-body">
+          <p>Game is paused.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn" data-dismiss="modal">Unpause</a>
+        </div>
+      </div>
+      <div class="modal hide" id="modal-timeout">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">x</a>
+          <h3>Timeout</h3>
+        </div>
+        <div class="modal-body">
+          <p>You have run out of time.</p>
+          <p>Board will be reset.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn" data-dismiss="modal">Try again</a>
+        </div>
+      </div>
+      <footer>
+        <p>&copy; <a href="http://dzonder.net/">dzonder.net</a> 2012</p>
+      </footer>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

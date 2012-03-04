@@ -23,38 +23,24 @@ BoardManager.prototype.loadBoard = function(boardId) {
          thisBoardManager.$timeLeft.html(thisBoardManager.board.timeLeft() + 's');
       },
       'onTimeout': function() {
-         var thisTimer = this;
-         $('#dialog-timeout').dialog({
-            modal: true,
-            buttons: {
-               'Ok': function() {
-                  $(this).dialog('close');
-               }
-            },
-            beforeClose: function() {
-               thisBoardManager.board.reset();
-               thisTimer.set();
-            }
-         });
+         $('#modal-timeout').modal('show');
       },
       'onPause': function() {
-         var thisTimer = this;
          thisBoardManager.board.$board.addClass('hidden-board');
-         $('#dialog-pause').dialog({
-            modal: true,
-            buttons: {
-               'Unpause': function() {
-                  $(this).dialog('close');
-               }
-            },
-            beforeClose: function() {
-               thisTimer.unpause();
-            }
-         });
+         $('#modal-pause').modal('show');
       },
       'onUnpause': function() {
          thisBoardManager.board.$board.removeClass('hidden-board');
       }
+   });
+
+   $('#modal-timeout').on('hidden', function(){
+      thisBoardManager.board.reset();
+      thisBoardManager.boardTimer.set();
+   });
+
+   $('#modal-pause').on('hidden', function(){
+      thisBoardManager.boardTimer.unpause();
    });
 
    this.currentBoardId = boardId;
@@ -65,13 +51,13 @@ BoardManager.prototype.drawBoardButtons = function() {
    var thisBoardManager = this;
 
    for (var i = 0; i < boards.length; ++i) {
-      $('#board-list', this.$dialogChange).append('<button id="board-change-' +i +'">Board ' +(i+1) +'</button>');
+      $('#board-list', this.$dialogChange).append('<button class="btn" id="board-change-' +i +'">' +(i+1) +'</button>');
    }
 
-   $('button', this.$dialogChange).button().click(function(){
+   $('button', this.$dialogChange).click(function(){
       var id = $(this).attr('id').match(/\d/g);
       thisBoardManager.loadBoard(id[0]);
-      thisBoardManager.$dialogChange.dialog('close');
+      thisBoardManager.$dialogChange.modal('hide');
    });
 }
 
@@ -85,10 +71,8 @@ function BoardManager() {
 
    this.$board = $('div#main-board');
    this.$timeLeft = $('span#time-left');
-   this.$dialogChange = $('#dialog-change');
-   this.$dialogHint = $('#dialog-hint');
-
-   $('button').button();
+   this.$dialogChange = $('#modal-change');
+   this.$dialogHint = $('#modal-hint');
 
    this.drawBoardButtons();
 
@@ -101,42 +85,24 @@ function BoardManager() {
 
    this.loadBoard(localStorage.getItem('lastBoardId'));
 
-   $('button#change').click(function(){
-      thisBoardManager.$dialogChange.dialog({
-         modal: true,
-         buttons: {
-            'Cancel': function() {
-               $(this).dialog('close');
-            }
-         }
-      });
-   });
-
-   $('button#hint').click(function(){
+   $('#hint').click(function(){
       var allowed = thisBoardManager.board.hint();
       var numbersHtml = '';
 
       for (var i = 0; i < allowed.length; ++i) {
          if (allowed[i])
-            numbersHtml += '<strong>' + (i+1) +'</strong>' + ((i != allowed.length-1) ? ', ' : '.');
+            numbersHtml += '<span class="label">' + (i+1) +'</span> ';
       }
 
       $('#allowed-numbers', thisBoardManager.$dialogHint).html(numbersHtml);
       
-      thisBoardManager.$dialogHint.dialog({
-         modal: true,
-         buttons: {
-            'Ok': function() {
-               $(this).dialog('close');
-            }
-         }
-      });
+      thisBoardManager.$dialogHint.modal('show');
    });
 
-   $('button#reset').click(function(){thisBoardManager.board.reset();});
-   $('button#undo').click(function(){thisBoardManager.board.undoMove();});
-   $('button#redo').click(function(){thisBoardManager.board.redoMove();});
-   $('button#pause').click(function(){thisBoardManager.boardTimer.pause();});
+   $('#reset').click(function(){thisBoardManager.board.reset();});
+   $('#undo').click(function(){thisBoardManager.board.undoMove();});
+   $('#redo').click(function(){thisBoardManager.board.redoMove();});
+   $('#pause').click(function(){thisBoardManager.boardTimer.pause();});
 }
 
 $(document).ready(function(){
