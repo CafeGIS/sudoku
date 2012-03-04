@@ -34,15 +34,6 @@ BoardManager.prototype.loadBoard = function(boardId) {
       }
    });
 
-   $('#modal-timeout').on('hidden', function(){
-      thisBoardManager.board.reset();
-      thisBoardManager.boardTimer.set();
-   });
-
-   $('#modal-pause').on('hidden', function(){
-      thisBoardManager.boardTimer.unpause();
-   });
-
    this.currentBoardId = boardId;
    localStorage.setItem('lastBoardId', boardId);
 }
@@ -97,6 +88,15 @@ function BoardManager() {
       $('#allowed-numbers', thisBoardManager.$dialogHint).html(numbersHtml);
       
       thisBoardManager.$dialogHint.modal('show');
+   });
+
+   $('#modal-timeout').on('hidden', function(){
+      thisBoardManager.board.reset();
+      thisBoardManager.boardTimer.set();
+   });
+
+   $('#modal-pause').on('hidden', function(){
+      thisBoardManager.boardTimer.unpause();
    });
 
    $('#reset').click(function(){thisBoardManager.board.reset();});
